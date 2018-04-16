@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+    function computerPlay() {
+      let int = Math.floor(Math.random() * Math.floor(3));
+      if (int >= 2) {
+        return "rock";
+      }
+      else if (int >= 1) {
+        return "paper";
+      }
+      else if (int < 1) {
+        return "scissors";
+      }
+      else {
+        return "What's happening?!?" + int;
+      }
+    }
+    function playRound(playerSelection, computerSelection) {
+      if(playerSelection==computerSelection)return "The result is a tie!";
+      switch(playerSelection+computerSelection){
+         case "rockscissors": case "scissorsrock":
+             return "rock wins";
+         case "rockpaper": case "paperrock":
+             return "paper wins";
+         default: return "scissors wins";
+      };
+    }
+
+    let playerSelection = prompt("What's your choice?").toLowerCase();
+    const computerSelection = computerPlay();
+    console.log(playerSelection);
+    console.log(computerSelection);
+    console.log(playRound(playerSelection, computerSelection));
+
+    </script>
+  </body>
+</html>
