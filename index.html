@@ -6,37 +6,66 @@
   </head>
   <body>
     <script>
-    function computerPlay() {
-      let int = Math.floor(Math.random() * Math.floor(3));
-      if (int >= 2) {
-        return "rock";
+    function game() {
+      let playerPoints = 0;
+      let computerPoints = 0;
+      for (i = 0; i <5; i++){
+        function computerPlay() {
+          let int = Math.floor(Math.random() * Math.floor(3));
+          if (int >= 2) {
+            return "rock";
+          }
+          else if (int >= 1) {
+            return "paper";
+          }
+          else {
+            return "scissors";
+          }
+        }
+
+        function playRound(playerSelection, computerSelection) {
+          if (playerSelection == "rock" && computerSelection == "scissors") {
+            playerPoints = playerPoints + 1;
+            return "Rock wins. 1 point for player";
+          }
+          else if (playerSelection == "rock" && computerSelection == "paper") {
+            computerPoints = computerPoints + 1;
+            return "Paper wins. 1 point for computer";
+          }
+          else if (playerSelection == "paper" && computerSelection == "scissors") {
+            computerPoints = computerPoints + 1;
+            return "Scissors wins. 1 point for computer";
+          }
+          else if (playerSelection == "paper" && computerSelection == "rock") {
+            playerPoints = playerPoints + 1;
+            return "Paper wins. 1 point for player";
+          }
+          else if (playerSelection == "scissors" && computerSelection == "rock") {
+            computerPoints = computerPoints + 1;
+            return "Rock wins. 1 point for computer";
+          }
+          else if (playerSelection == "scissors" && computerSelection == "paper") {
+            playerPoints = playerPoints + 1;
+            return "Scissors wins. 1 point for player";
+          }
+          else {
+            return "The result is a tie!";
+          }
+        }
+        let playerSelection = prompt("What's your choice?").toLowerCase();
+        const computerSelection = computerPlay();
+        console.log(playRound(playerSelection, computerSelection));
       }
-      else if (int >= 1) {
-        return "paper";
+      if (playerPoints > computerPoints) {
+        console.log("Player wins with " + playerPoints + " points!");
       }
-      else if (int < 1) {
-        return "scissors";
+      else if (playerPoints < computerPoints) {
+        console.log("Computer wins with " + computerPoints + " points!");
       }
       else {
-        return "What's happening?!?" + int;
+        console.log("It's a tie!");
       }
     }
-    function playRound(playerSelection, computerSelection) {
-      if(playerSelection==computerSelection)return "The result is a tie!";
-      switch(playerSelection+computerSelection){
-         case "rockscissors": case "scissorsrock":
-             return "rock wins";
-         case "rockpaper": case "paperrock":
-             return "paper wins";
-         default: return "scissors wins";
-      };
-    }
-
-    let playerSelection = prompt("What's your choice?").toLowerCase();
-    const computerSelection = computerPlay();
-    console.log(playerSelection);
-    console.log(computerSelection);
-    console.log(playRound(playerSelection, computerSelection));
 
     </script>
   </body>
