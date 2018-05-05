@@ -2,15 +2,15 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Rock, Paper, Scissors!</title>
   </head>
   <body>
     <script>
     function game() {
       let playerPoints = 0;
       let computerPoints = 0;
-      for (i = 0; i <5; i++){
-        function computerPlay() {
+      for (i = 0; i <5; i++){ // each game should last 5 rounds
+        function computerPlay() { // the computer's choice will be assigned based on a random number 1-3
           let int = Math.floor(Math.random() * Math.floor(3));
           if (int >= 2) {
             return "rock";
@@ -23,7 +23,7 @@
           }
         }
 
-        function playRound(playerSelection, computerSelection) {
+        function playRound(playerSelection, computerSelection) { // check various possible scenarios
           if (playerSelection == "rock" && computerSelection == "scissors") {
             playerPoints = playerPoints + 1;
             return "Rock wins. 1 point for player";
@@ -49,14 +49,15 @@
             return "Scissors wins. 1 point for player";
           }
           else {
-            return "The result is a tie!";
+            return "The result is a tie!"; // result of computer and player choices are the same
           }
         }
-        let playerSelection = prompt("What's your choice?").toLowerCase();
+        let playerSelection = prompt("Choose rock, paper, or scissors.").toLowerCase();
         const computerSelection = computerPlay();
         console.log(playRound(playerSelection, computerSelection));
       }
-      if (playerPoints > computerPoints) {
+
+      if (playerPoints > computerPoints) { // decide winner based on points assigned above in if function
         console.log("Player wins with " + playerPoints + " points!");
       }
       else if (playerPoints < computerPoints) {

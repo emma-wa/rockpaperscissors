@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Rock, Paper, Scissors!</title>
+  </head>
+  <body>
+    <div>
+      <h1>Rock, Paper, Scissors, Shoot!</h1>
+      <h2>Make your selection.</h2>
+      <button class="btn" id="rock">Rock</button>
+      <button class="btn" id="paper">Paper</button>
+      <button class="btn" id="scissors">Scissors</button>
+      <button id="reset">Reset Game</button>
+    </div>
+    <div>
+      <h1>Score</h1>
+        <h3>Results</h3>
+        <p class="results">Waiting for a choice...</p>
+      <div>
+        <h3>Computer Score</h3>
+        <p class="computer">0</p>
+      </div>
+      <div>
+        <h3>Player Score</h3>
+        <p class="player">0</p>
+      </div>
+    </div>
+    <div>
+      <h1>Final</h1>
+      <p class="final">Who will it be??</p>
+    </div>
+
+    <script>
+      let playerPoints = 0;
+      let computerPoints = 0;
+      const results = document.querySelector('.results');
+      const computer = document.querySelector('.computer');
+      const player = document.querySelector('.player');
+      const final = document.querySelector('.final');
+      // randomly generate the computer's choice; will be assigned based on a random number 1-3
+      function computerPlay() { //
+        let int = Math.floor(Math.random() * Math.floor(3));
+        if (int >= 2) {
+          return "rock";
+        }
+        else if (int >= 1) {
+          return "paper";
+        }
+        else {
+          return "scissors";
+        }
+      }
+
+      // check various possible outcomes for comparing computer and player choice
+      function playRound(playerSelection, computerSelection) {
+        if (playerSelection == "rock" && computerSelection == "scissors") {
+          results.textContent = "Rock wins. 1 point for player";
+          playerPoints = playerPoints + 1;
+          player.textContent = playerPoints;
+        }
+        else if (playerSelection == "rock" && computerSelection == "paper") {
+          results.textContent = "Paper wins. 1 point for computer";
+          computerPoints = computerPoints + 1;
+          computer.textContent = computerPoints;
+        }
+        else if (playerSelection == "paper" && computerSelection == "scissors") {
+          results.textContent = "Scissors wins. 1 point for computer";
+          computerPoints = computerPoints + 1;
+          computer.textContent = computerPoints;
+        }
+        else if (playerSelection == "paper" && computerSelection == "rock") {
+          results.textContent = "Paper wins. 1 point for player";
+          playerPoints = playerPoints + 1;
+          player.textContent = playerPoints;
+        }
+        else if (playerSelection == "scissors" && computerSelection == "rock") {
+          results.textContent = "Rock wins. 1 point for computer";
+          computerPoints = computerPoints + 1;
+          computer.textContent = computerPoints;
+        }
+        else if (playerSelection == "scissors" && computerSelection == "paper") {
+          results.textContent = "Scissors wins. 1 point for player";
+          playerPoints = playerPoints + 1;
+          player.textContent = playerPoints;
+        }
+        else {
+          results.textContent = "The result is a tie!"; // result of computer and player choices are the same
+        }
+      }
+
+
+      // get the player's choice based of button click
+      var button = document.querySelectorAll('.btn');
+      button.forEach(btn => btn.addEventListener('click', function(e){
+        // assign the player's selection
+        const playerSelection = e.srcElement.id;
+        // assign the computer's selection
+        const computerSelection = computerPlay();
+        // play a round
+        const result = playRound(playerSelection, computerSelection);
+        // decide winner based on points assigned above in if function
+        if ((playerPoints > 4) || (computerPoints > 4)) {
+          enableButton(false);
+          if (playerPoints > computerPoints) {
+            final.textContent = "Player wins with " + playerPoints + " points!";
+          }
+          else {
+            final.textContent = "Computer wins with " + computerPoints + " points!";
+          }
+        }
+        else {
+          return;
+        }
+      }));
+
+      function enableButton (enable) {
+        var buttons = document.querySelectorAll('.btn');
+        buttons.forEach(function(button) {
+          button.disabled = !enable;
+        });
+      }
+
+      // reset game
+      var reset = document.querySelector('#reset');
+      reset.addEventListener('click', resetGame);
+      function resetGame() {
+        playerPoints = 0;
+        computerPoints = 0;
+        final.textContent = "Who will it be??";
+        results.textContent = "Waiting for a choice...";
+        player.textContent = playerPoints;
+        computer.textContent = computerPoints;
+        enableButton(true);
+      }
+    </script>
+  </body>
+</html>
